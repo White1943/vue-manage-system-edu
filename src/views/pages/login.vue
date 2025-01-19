@@ -16,12 +16,8 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input
-                        type="password"
-                        placeholder="密码"
-                        v-model="param.password"
-                        @keyup.enter="submitForm(login)"
-                    >
+                    <el-input type="password" placeholder="密码" v-model="param.password"
+                        @keyup.enter="submitForm(login)">
                         <template #prepend>
                             <el-icon>
                                 <Lock />
@@ -50,7 +46,7 @@ import { usePermissStore } from '@/store/permiss';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';
-
+import { loginUser } from '@/api/index';
 interface LoginInfo {
     username: string;
     password: string;
@@ -78,26 +74,65 @@ const rules: FormRules = {
 };
 const permiss = usePermissStore();
 const login = ref<FormInstance>();
-const submitForm = (formEl: FormInstance | undefined) => {
+    const submitForm = (formEl: FormInstance | undefined) => {
     if (!formEl) return;
-    formEl.validate((valid: boolean) => {
+    formEl.validate(async (valid: boolean) => {
         if (valid) {
-            ElMessage.success('登录成功');
-            localStorage.setItem('vuems_name', param.username);
-            const keys = permiss.defaultList[param.username == 'admin' ? 'admin' : 'user'];
-            permiss.handleSet(keys);
-            router.push('/');
-            if (checked.value) {
-                localStorage.setItem('login-param', JSON.stringify(param));
-            } else {
-                localStorage.removeItem('login-param');
+            try {
+                const response = await loginUser({
+                    username: param.username,
+                    password: param.password,
+                });
+                console.log('Login successful:', response); // 打印出响应内容
+                ElMessage.success('登录成功');
+                localStorage.setItem('vuems_name', param.username);
+                router.push('/');
+            } catch (error) {
+                console.error('Login error:', error); // 打印出错误信息
+                ElMessage.error('登录失败');
             }
         } else {
             ElMessage.error('登录失败');
-            return false;
         }
     });
 };
+
+// const submitForm =async (formEl: FormInstance | undefined) => {
+//     if (!formEl) return;
+//     formEl.validate(async (valid: boolean) => {
+//         if (valid) {
+//             console.log('Form validated, sending login request...');
+//             try {
+//                     const response = await loginUser({
+//                     username: param.username,
+                  
+//                     password: param.password,
+                    
+//                 });
+
+//                 ElMessage.success('登录成功');
+//                 localStorage.setItem('vuems_name', param.username);
+//                 const keys = permiss.defaultList[param.username == 'admin' ? 'admin' : 'user'];
+//                 permiss.handleSet(keys);//quan限设置，额抽象，咋哪里分配的是数字
+//                 router.push('/');
+//                 if (checked.value) {//勾选记住密码的逻辑
+//                     localStorage.setItem('login-param', JSON.stringify(param));
+//                 } else {
+//                     localStorage.removeItem('login-param');
+//                 }
+//             } catch (error) {
+//                 ElMessage.error('登录失败');
+//             }
+          
+               
+                
+           
+//         } else {
+//             ElMessage.error('登录失败');
+//             return false;
+//         }
+//     });
+// };
 
 const tabs = useTabsStore();
 tabs.clearTabs();
