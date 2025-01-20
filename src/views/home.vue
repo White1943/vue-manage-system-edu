@@ -61,3 +61,7 @@ const tabs = useTabsStore();
     left: 65px;
 }
 </style>
+
+
+
+// this is home.vue

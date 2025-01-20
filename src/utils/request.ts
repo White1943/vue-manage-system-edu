@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosError, AxiosResponse, InternalAxiosRequestCo
 const API_URL = 'http://localhost:5000'; 
 const service: AxiosInstance = axios.create({
     baseURL: API_URL,
-    timeout: 5000
+    timeout: 50000000
 });
 
 // request.use 负责在每次请求发送之前对请求进行一些处理，比如设置请求头、处理 token 等
@@ -42,3 +42,4 @@ service.interceptors.response.use(
 export default service;
 //找到axios导入拉，差点被src/api/index.ts骗过去了，还好发现马脚
 //原理在src/utils/request.ts
+//this is app/utils/request.ts

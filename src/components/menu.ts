@@ -1,5 +1,6 @@
 import { Menus } from '@/types/menu';
-
+const isAdmin = localStorage.getItem('is_admin') === 'true' ? true : false;
+// alert('ee'+isAdmin)
 export const menuData: Menus[] = [
     {
         id: '0',
@@ -8,29 +9,54 @@ export const menuData: Menus[] = [
         icon: 'Odometer',
     },
     {
+        id:'8',
+        title:'学生自学自测',
+        
+        index:'8',
+        icon:'Odometer',
+        children:[
+            {id: '81',
+                pid:'8',
+                index: '/sql-generator',
+                title: 'SQL自动生成',
+               
+                
+            },
+            {
+                id: '82',
+                pid:'8',
+                index: '/sql-validator',
+                title: 'SQL正确性判断',
+                
+            },
+        ]
+    },
+    {
         id: '1',
         title: '系统管理',
         index: '1',
         icon: 'HomeFilled',
         children: [
-            {
-                id: '11',
-                pid: '1',
-                index: '/system-user',
-                title: '用户管理',
-            },
-            {
-                id: '12',
-                pid: '1',
-                index: '/system-role',
-                title: '角色管理',
-            },
-            {
-                id: '13',
-                pid: '1',
-                index: '/system-menu',
-                title: '菜单管理',
-            },
+         
+                {
+                    id: '11',
+                    pid: '1',
+                    index: '/system-user',
+                    title: '用户管理',
+                },
+                {
+                    id: '12',
+                    pid: '1',
+                    index: '/system-role',
+                    title: '角色管理',
+                },
+                {
+                    id: '13',
+                    pid: '1',
+                    index: '/system-menu',
+                    title: '菜单管理',
+                },
+           
         ],
     },
     {
@@ -218,4 +244,9 @@ export const menuData: Menus[] = [
             },
         ],
     },
+    
+   
 ];
+console.log("menudata"+menuData);
+
+//this is components/menu.ts

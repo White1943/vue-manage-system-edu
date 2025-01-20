@@ -221,6 +221,25 @@ const routes: RouteRecordRaw[] = [
                 },
                 component: () => import(/* webpackChunkName: "statistic" */ '../views/element/statistic.vue'),
             },
+            {
+                path: '/sql-generator',
+                name: 'sql-generator',
+                meta: {
+                    title: 'SQL自动生成',
+                    permiss: '81',  
+                },
+                component: () => import(/* webpackChunkName: "sql-generator" */ '../views/pages/sqlGenerator.vue'),
+            },
+            {
+                path: '/sql-validator',
+                name: 'sql-validator',
+                meta: {
+                    title: 'SQL正确性判断',
+                    permiss: '82',  
+                },
+                component: () => import(/* webpackChunkName: "sql-validator" */ '../views/pages/sqlValidator.vue'),
+            },
+            
         ],
     },
     {
@@ -291,3 +310,4 @@ router.afterEach(() => {
 });
 
 export default router;
+//this is router/index.ts

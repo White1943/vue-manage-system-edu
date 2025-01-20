@@ -30,7 +30,7 @@
                     <el-link type="primary" @click="$router.push('/reset-pwd')">忘记密码</el-link>
                 </div>
                 <el-button class="login-btn" type="primary" size="large" @click="submitForm(login)">登录</el-button>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
+                <p class="login-tips">Tips :  </p>
                 <p class="login-text">
                     没有账号？<el-link type="primary" @click="$router.push('/register')">立即注册</el-link>
                 </p>
@@ -84,7 +84,9 @@ const login = ref<FormInstance>();
                     password: param.password,
                 });
                 console.log('Login successful:', response); // 打印出响应内容
-                ElMessage.success('登录成功');
+                ElMessage.success('登录成功');  
+                // alert(response.data.data.is_admin)
+                localStorage.setItem('is_admin',response.data.data.is_admin)
                 localStorage.setItem('vuems_name', param.username);
                 router.push('/');
             } catch (error) {

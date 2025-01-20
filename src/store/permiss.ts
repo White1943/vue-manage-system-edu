@@ -41,14 +41,18 @@ export const usePermissStore = defineStore('permiss', {
                 '63',
                 '64',
                 '65',
-                '66',
+                '66','81','82','8'//8开头的是有关sql的权限
             ],
-            user: ['0', '1', '11', '12', '13'],
+            user: ['0',
+                // '1', '11', '12', '13',普通用户就不用显示系统管理了
+                
+                '81','82','8'],
         };
         const username = localStorage.getItem('vuems_name');
+        const is_admin=localStorage.getItem('is_admin');
         console.log(username);
         return {
-            key: (username == 'admin' ? defaultList.admin : defaultList.user) as string[],
+            key: (is_admin == 'true' ? defaultList.admin : defaultList.user) as string[],
             defaultList,
         };
     },

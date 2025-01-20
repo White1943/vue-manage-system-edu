@@ -88,3 +88,4 @@ const sidebar = useSidebarStore();
     min-height: 100%;
 }
 </style>
+//this is components/sidebar.vue
